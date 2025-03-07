@@ -1,0 +1,13 @@
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: prom-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: http-service
+  endpoints:
+  - port: benthos
+    scheme: http
+    interval: 15s
+

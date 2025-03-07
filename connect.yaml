@@ -1,0 +1,243 @@
+http:
+ enabled: true
+ address: 0.0.0.0:4195
+ root_path: /
+ debug_endpoints: true
+
+logger:
+  level: DEBUG
+
+input:
+ label: "www"
+ http_server:
+   timeout: 60s
+   address: 0.0.0.0:80
+   path: /snowpipe/insert/BENTHOS_DB/PUBLIC/{snowflake_table}
+   allowed_verbs:
+     - POST
+
+buffer:
+  memory:
+    limit: 536870912
+  # wal:
+  #   path: "/data/wal"
+  #   shards: 8
+  #   max_segment_size: '10MB'
+  #   limits:
+  #     count: 0
+
+pipeline:
+  processors:
+    - unarchive:
+        format: json_array
+output:
+  switch:
+    strict_mode: true
+    cases:
+      - check: '@snowflake_table == "TABLE_A"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_A"
+            channel_prefix: "TABLE_A_${K8S_POD_ID}"
+            max_in_flight: 4
+            build_options:
+              parallelism: 4
+              chunk_size: 5000
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_B"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_B"
+            channel_prefix: "TABLE_B_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_C"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_C"
+            channel_prefix: "TABLE_C_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_D"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_D"
+            channel_prefix: "TABLE_D_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_E"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_E"
+            channel_prefix: "TABLE_E_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_F"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_F"
+            channel_prefix: "TABLE_F_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_G"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_G"
+            channel_prefix: "TABLE_G_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_H"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_H"
+            channel_prefix: "TABLE_H_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000    
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_I"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_I"
+            channel_prefix: "TABLE_I_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - check: '@snowflake_table == "TABLE_J"'
+        output:
+          snowflake_streaming:
+            account: WQKFXQQ-WI77362
+            user: ROCKWOODREDPANDA
+            private_key: "${SNOWFLAKE_KEY}"
+            role: ACCOUNTADMIN
+            database: BENTHOS_DB
+            schema: PUBLIC
+            table: "TABLE_J"
+            channel_prefix: "TABLE_J_${K8S_POD_ID}"
+            max_in_flight: 1
+            build_options:
+              parallelism: 4
+              chunk_size: 5000
+            batching:
+              count: 30000
+              period: 1m
+            schema_evolution:
+              enabled: true
+      - output:
+          processors:
+            - log:
+                level: ERROR
+                message: 'unknown table: "${!@snowflake_table}"'
+          drop: {}
+
